@@ -13,14 +13,16 @@ if (!CONFIG_SERVER_URL || !LOG_URL || !LOG_API_TOKEN) {
   process.exit(1);
 }
 
-app.use(
-  cors({
-    origin: ["http://localhost:5173", "*"],
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-app.options("*", cors());
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*"); // ช่วง dev: * ; โปรดล็อกโดเมนภายหลัง
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204); // ตอบ preflight ให้จบ
+  }
+  next();
+});
 
 // Healthcheck
 app.get("/health", (_req, res) => {
