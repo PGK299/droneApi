@@ -13,6 +13,11 @@ LOG_URL={your_URL}
 LOG_API_TOKEN={your_Token}
 ```
 # การ Run Application
+สำหรับ DEV
+```bash
+npm run dev
+```
+ใช้งานจริง
 ```bash
 npm start
 ```
@@ -22,3 +27,6 @@ npm start
 - `GET /status/{droneId}` - ดึงสถานะของโดรน
 - `GET /logs/{droneId}` - ดึงประวัติการทำงานของโดรน
 - `POST /logs` - สร้างข้อมูลใหม่
+# Hosting
+ใช้ Render ในการ Host API
+- https://droneapi-jutr.onrender.com
