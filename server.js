@@ -6,6 +6,13 @@ app.use(express.json());
 
 const cors = require("cors");
 
+// ENV
+const { PORT = 3000, CONFIG_SERVER_URL, LOG_URL, LOG_API_TOKEN } = process.env;
+if (!CONFIG_SERVER_URL || !LOG_URL || !LOG_API_TOKEN) {
+  console.error("[BOOT] Missing ENV variables.");
+  process.exit(1);
+}
+
 app.use(
   cors({
     origin: ["http://localhost:5173", "*"],
@@ -14,13 +21,6 @@ app.use(
   })
 );
 app.options("*", cors());
-
-// ENV
-const { PORT = 3000, CONFIG_SERVER_URL, LOG_URL, LOG_API_TOKEN } = process.env;
-if (!CONFIG_SERVER_URL || !LOG_URL || !LOG_API_TOKEN) {
-  console.error("[BOOT] Missing ENV variables.");
-  process.exit(1);
-}
 
 // Healthcheck
 app.get("/health", (_req, res) => {
