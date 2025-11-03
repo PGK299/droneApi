@@ -5,6 +5,22 @@ const axios = require("axios");
 const app = express();
 app.use(express.json());
 
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://droneapi-jutr.onrender.com",
+      "*",
+    ],
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+app.options("*", cors());
+
 // ENV
 const { PORT = 3000, CONFIG_SERVER_URL, LOG_URL, LOG_API_TOKEN } = process.env;
 if (!CONFIG_SERVER_URL || !LOG_URL || !LOG_API_TOKEN) {
