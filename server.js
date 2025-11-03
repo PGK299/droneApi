@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
-
 const app = express();
 app.use(express.json());
 
@@ -9,16 +8,11 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://droneapi-jutr.onrender.com",
-      "*",
-    ],
+    origin: ["http://localhost:5173", "*"],
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
 app.options("*", cors());
 
 // ENV
